@@ -1,26 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link rel="stylesheet" type="text/css" href="twiddler.css">
+    <title>Twiddler</title>
   </head>
   <body>
     <script>
 
       $(document).ready(function(){
+
         var $body = $('body');
-        $body.html('');
+        var header = '<div class = "header">';
+        header += '<img src = "twiddler.png" id = "logo">';
+        header += '<div class = "header_spacer"></div><h1>Twiddler</h1></div>';
+        header += '<label id = "last_update">Last update ' + new Date().toLocaleTimeString('en-US') + '</label>';
+        header += '<hr><button class ="refresh" onclick="getFallowingTweets()">More Tweets</button>';
+
+        // add the haeder code to the page and attach div to display the tweets
+        $body.html(header + '<div id = "displayTweets"></div>');
+
+        });
+
+      function getFallowingTweets(){
+        // get all the tweets for all the fallowing users
 
         var index = streams.home.length - 1;
+        var code = '';
         while(index >= 0){
+
           var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
+          var user = tweet.user;
+          var message = tweet.message;
+          var time = tweet.created_at.toLocaleTimeString('en-US');
+
+          // display tweets in a table style
+          // code += '<table><thead><tr><th>User: ' + user + ' </th></tr></thead>';
+          // code += '<tbody><tr><th>' + message + '</th></tr></tbody>';
+          // code += '<tfoot><tr><th>Tweet time: ' + time + '</th>';
+          // code += '<th>' + '<button id = "' + user + '" onclick="getUserTweets(id)">' + user + ' Tweets</button>' + '</th></tr></tfoot></table>';
+
+          // display tweets in a fieldset style
+          code += '<fieldset><legend>|   ' + user + '   |</legend>';
+          code += '<textarea rows="3" cols="100" disabled>' + message + '</textarea><br>';
+          code += '<label>Tweet time: ' + time + '    </label>';
+          code += '<button id = "' + user + '" onclick="getUserTweets(id)">' + user + ' Tweets</button>';
+          code += '</fieldset>';
+
           index -= 1;
+
         }
 
-      });
+        document.getElementById("displayTweets").innerHTML = code;
+        document.getElementById("last_update").innerHTML = 'Last update ' + new Date().toLocaleTimeString('en-US');
+
+       }
+
+       function getUserTweets(user){
+         // get all the tweets for a givin user
+
+         var userTimeLine = streams.users[user];
+         var index = userTimeLine.length - 1;
+         var code = '<h3>Time line for user: ' + user + '<h3><h5>To see all fallowing tweets click on  ( More Tweets )  button<h5><hr>';
+
+         while(index >= 0){
+
+           var tweet = userTimeLine[index];
+           var message = tweet.message;
+           var time = tweet.created_at.toLocaleTimeString('en-US');
+
+           // display tweets in a table style
+           // code += '<table><thead><tr><th>User: ' + user + ' </th></tr></thead>';
+           // code += '<tbody><tr><th>' + message + '</th></tr></tbody>';
+           // code += '<tfoot><tr><th>Tweet time: ' + time + '</th>';
+
+           // display tweets in a fieldset style
+           code += '<fieldset><legend>|   ' + user + '   |</legend>';
+           code += '<textarea rows="3" cols="100" disabled>' + message + '</textarea><br>';
+           code += '<label>Tweet time: ' + time + '    </label>';
+           code += '</fieldset>';
+
+           index -= 1;
+         }
+
+         document.getElementById("displayTweets").innerHTML = code;
+         document.getElementById("last_update").innerHTML = 'Last update ' + new Date().toLocaleTimeString('en-US');
+
+       }
+       // call getFallowingTweets function when finish loading the page
+       // to display tweets instead of waiting the user to click on more tweets button
+       window.onload = getFallowingTweets;
 
     </script>
   </body>

@@ -1,0 +1,76 @@
+body{
+  background-color: rgba(240,223,163,.5);
+}
+
+fieldset{
+  margin: 20px;
+  padding: 10px, 0, 10px, 0;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: #99EEFF;
+  text-align: left;
+  width: 1000px;
+  font-size: 16px;
+}
+
+legend{
+  background-color: #99EEFF;
+  border-top: 2px solid black;
+  border-radius: 7px;
+}
+
+textarea{
+  background-color: #ddd;
+  color: black;
+  font-size: 16px;
+  text-indent: 20px;
+  resize: none;
+
+}
+
+/* table{
+  margin: 20px;
+  padding: 10px, 0, 10px, 0;
+  border: 3px solid #99EEFF;
+  border-radius: 5px;
+  background-color: #99EEFF;
+  text-align: left;
+  width: 1000px;
+}
+
+tbody tr{
+  background-color: #ddd;
+  height: 50px;
+  max-height: 150px;
+  text-indent: 20px;
+}
+
+tfoot tr{
+  display: inline;
+} */
+
+button{
+  height: 25px;
+  width: 150px;
+  opacity: 0.75;
+}
+
+.header{
+  display: flex;
+}
+
+.header_spacer{
+  width: 350px;
+}
+
+button.refresh{
+  height: 30px;
+  width: 155px;
+  opacity: 100;
+}
+
+#logo{
+  margin: 10px;
+  height: 100px;
+  width: 120px;
+}
